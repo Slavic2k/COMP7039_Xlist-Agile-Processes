@@ -93,7 +93,7 @@
             </div>
         </div>
     </header>
-  <h2>Copper Price over time (USD/oz)</h2>
+  <h2>Copper Price over time (USD/Ton)</h2>
   <canvas id="priceChart" width="800" height="300"></canvas>
   <h1>test</h1>
   <p>Copper facts go here</p>
@@ -137,7 +137,7 @@ const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,\.]+)"?/);
         type: 'line',
         data: {
 datasets: [{
-  label: 'Price ($/oz t)',
+  label: 'Price ($/Ton)',
   data: dataPoints,
   borderColor: 'rgba(203, 120, 18, 0.8)',
   backgroundColor: 'rgba(227, 186, 136, 0.8)',
@@ -193,3 +193,4 @@ y: {
   </script>
 </body>
 </html>
+
