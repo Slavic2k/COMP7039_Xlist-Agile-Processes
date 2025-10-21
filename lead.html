@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<title>Market Movers - Gold</title>
+<title>Market Movers - Lead</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,13 +93,13 @@
             </div>
         </div>
     </header>
-  <h2>Gold Price over time (USD/oz)</h2>
+  <h2>Lead Price over time (USD/oz)</h2>
   <canvas id="priceChart" width="800" height="300"></canvas>
   <h1>test</h1>
-  <p>Gold facts go here</p>
+  <p>Lead facts go here</p>
   <script>
     async function fetchCSVData() {
-      const response = await fetch('data/gold.csv');
+      const response = await fetch('data/lead.csv');
       const text = await response.text();
       console.log('Raw CSV text:', text);
 
@@ -110,7 +110,7 @@
 
       rows.forEach((row, index) => {
         console.log(`Row ${index}:`, row);
-        const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"(.*?)"/); // relaxed regex
+const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,\.]+)"?/);
         if (match) {
           const [month, day, year] = match[1].split('/');
           const isoDate = `${year}-${month}-${day}`;
@@ -139,8 +139,8 @@
 datasets: [{
   label: 'Price ($/oz t)',
   data: dataPoints,
-  borderColor: 'rgba(185, 184, 26, 0.8)',
-  backgroundColor: 'rgba(255, 254, 155, 0.8)',
+  borderColor: 'rgba(196, 193, 195, 0.8)',
+  backgroundColor: 'rgba(225, 221, 223, 0.8)',
   fill: true,
   tension: 0.3,
   pointRadius: 0,
