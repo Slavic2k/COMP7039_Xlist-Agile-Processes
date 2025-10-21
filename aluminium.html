@@ -93,7 +93,7 @@
             </div>
         </div>
     </header>
-  <h2>Aluminium Price over time (USD/oz)</h2>
+  <h2>Aluminium Price over time (USD/ton)</h2>
   <canvas id="priceChart" width="800" height="300"></canvas>
   <h1>test</h1>
   <p>Aluminium facts go here</p>
@@ -137,7 +137,7 @@ const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,\.]+)"?/);
         type: 'line',
         data: {
 datasets: [{
-  label: 'Price ($/oz t)',
+  label: 'Price ($/ton)',
   data: dataPoints,
   borderColor: 'rgba(196, 193, 195, 0.8)',
   backgroundColor: 'rgba(225, 221, 223, 0.8)',
@@ -193,3 +193,4 @@ y: {
   </script>
 </body>
 </html>
+
