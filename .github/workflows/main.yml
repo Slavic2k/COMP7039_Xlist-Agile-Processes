@@ -1,0 +1,52 @@
+name: Lint Embedded HTML, CSS, and JS in src/
+
+on:
+  push:
+    paths:
+      - 'src/**/*.html'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'src/**/*.html'
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install linters
+        run: |
+          npm install --save-dev htmlhint eslint stylelint stylelint-config-standard
+
+      - name: Migrate ESLint config
+        run: |
+          npx @eslint/migrate-config .eslintrc.json 
+
+      - name: Lint HTML files
+        run: |
+          npx htmlhint "src/**/*.html" || echo "HTML linting issues found"
+
+      - name: Extract and lint CSS from HTML files
+        run: |
+          find src -name '*.html' | while read file; do
+            awk '/<style>/,/<\/style>/' "$file" | sed 's/<\/\?style>//g' > temp.css
+            npx stylelint temp.css || echo "CSS linting issues in $file"
+          done
+
+      - name: Extract and lint JS from HTML files
+        run: |
+          find src -name '*.html' | while read file; do
+            awk '/<script>/,/<\/script>/' "$file" | sed 's/<\/\?script>//g' > temp.js
+            npx eslint temp.js || echo "JS linting issues in $file"
+          done
