@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended"
+  ],
+  "rules": {
+    "indentation": 2,
+    "string-quotes": "double",
+    "rule-empty-line-before": "always",
+    "length-zero-no-unit": true,
+    "color-function-notation": "modern",
+    "color-function-alias-notation": "never",
+    "alpha-value-notation": "percentage"
+  }
+}
