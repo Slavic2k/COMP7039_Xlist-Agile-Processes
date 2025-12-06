@@ -11,7 +11,7 @@ Develop visualisations to explore and understand the data
 
 Use an LLM to extract knowledge from the dataset
 
-📊 Project Summary (IT.3 / ITM3)
+Project Summary (IT.3 / ITM3)
 
 The purpose of this project is to retrieve real-world commodity data, visualise it to support insight generation, and integrate an LLM for knowledge extraction.
 
