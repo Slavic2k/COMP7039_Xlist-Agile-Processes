@@ -7,6 +7,6 @@
     "rule-empty-line-before": "always",
     "length-zero-no-unit": true,
     "color-function-notation": "modern",
-    "alpha-value-notation": "float"
+    "alpha-value-notation": "number"
   }
 }
