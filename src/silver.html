@@ -343,7 +343,7 @@
 
             rows.forEach((row, index) => {
                 console.log(`Row ${index}:`, row);
-                const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,\.]+)"?/);
+                const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,.]+)"?/);
                 if (match) {
                     const [month, day, year] = match[1].split('/');
                     const isoDate = `${year}-${month}-${day}`;
