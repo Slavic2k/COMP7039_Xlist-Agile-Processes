@@ -4,9 +4,12 @@
     "stylelint-config-recommended"
   ],
   "rules": {
-    "rule-empty-line-before": "always",
-    "length-zero-no-unit": true,
-    "color-function-notation": "modern",
-    "alpha-value-notation": "number"
+    "indentation": null,
+    "string-quotes": null,
+    "rule-empty-line-before": null,
+    "color-function-notation": "legacy",
+    "alpha-value-notation": "number",
+    "selector-pseudo-element-colon-notation": "double",
+    "media-feature-range-notation": "prefix"
   }
 }
