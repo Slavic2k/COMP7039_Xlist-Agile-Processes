@@ -4,8 +4,6 @@
     "stylelint-config-recommended"
   ],
   "rules": {
-    "indentation": null,
-    "string-quotes": null,
     "rule-empty-line-before": null,
     "color-function-notation": "legacy",
     "alpha-value-notation": "number",
