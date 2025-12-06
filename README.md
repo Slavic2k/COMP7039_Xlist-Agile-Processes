@@ -1,4 +1,49 @@
-# COMP7039_Xlist-Agile-Processes
-IT.3 ITM3
-The purpose of this project is to pull data from the web, develop a visualisation to understand the data and use an LLM to extract knowledge. We achieved the first two goals over the course of two sprints. The first sprint was dedicated to finding data and processing it for use. The second sprint revolved around creating a website to visualise the dataset. To create the data, we pulled eight CSVs from the web that contained the prices of various commodities each month for a period of ten years. The commodities chosen were a mix of precious and industrial metals. These CSVs were saved in Google Sheets to be cleaned up for use in sprint two. To visualise the data in sprint two, a website was created using HTML, JavaScript, CSS and the library Chart.js. The development of the website was kept up to date with a github repository. The website consists of nine pages, including a home page and eight pages dedicated to various metals with interactive charts. At the time of concluding sprint two, we have a fully functional website that allows users to easily and interactively visualise the dataset. 
+COMP7039 – Agile Processes: 
+Project: Commodity Price Visualisation Through The Agile Process
 
+
+This project was developed as part of the IT.3 / ITM3 assessment for COMP7039.
+The goal was to:
+
+Research Data Sets and use it to develop an product
+
+Develop visualisations to explore and understand the data
+
+Use an LLM to extract knowledge from the dataset
+
+📊 Project Summary (IT.3 / ITM3)
+
+The purpose of this project is to retrieve real-world commodity data, visualise it to support insight generation, and integrate an LLM for knowledge extraction.
+
+Home page
+
+8 individual metal pages (e.g., Gold, Silver, Aluminium, etc.)
+Each metal page features an graphchart using the dataset we researched.
+
+Metal Pages
+Along with this there also a metal facts section
+Finally using an LLM we provide our users with possible trends and anomalies
+
+Root Redirect to /src
+
+GitHub Pages requires an index.html in the root of the repository.
+Because all website files are inside /src, a lightweight redirect is used:
+
+<meta http-equiv="refresh" content="0; url=src/index.html">
+
+
+This allows:
+
+https://slavic2k.github.io/COMP7039_Xlist-Agile-Processes/
+
+
+to load the real site in /src.
+
+Team
+
+COMP7039 Agile Processes - Group ITS2 
+Project: Commodity Price Visualisation Through The Agile Process
+Oleksiy Borshchevskyy
+Brandon Cheung
+Alexander Donnelly
+Christabell Ibebugwu
