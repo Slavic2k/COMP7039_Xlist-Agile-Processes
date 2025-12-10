@@ -50,3 +50,20 @@ jobs:
             awk '/<script>/,/<\/script>/' "$file" | sed 's/<\/\?script>//g' > temp.js
             npx eslint temp.js || echo "JS linting issues in $file"
           done
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: lint
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src
+          publish_branch: gh-pages
+
