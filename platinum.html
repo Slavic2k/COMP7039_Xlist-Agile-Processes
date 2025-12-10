@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Movers - Platinum</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgb(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            padding: 5px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a3a5f;
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 25px;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1a3a5f;
+        }
+
+        nav li::after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 5px;
+            color: #777;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: #1a3a5f;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: #777;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-title {
+            color: #1a3a5f;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Facts Section */
+        .facts-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .facts-title {
+            color: #1a3a5f;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e4e2;
+            text-align: center;
+        }
+
+        .facts-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .facts-list {
+            list-style-type: none;
+        }
+
+        .facts-list li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .facts-list li::before {
+            content: "•";
+            color: #e5e4e2;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav li {
+                margin: 5px 10px;
+            }
+
+            .facts-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.3/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        COMMODITY PRICES & MARKET TRENDS
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!-- Using a placeholder for the logo -->
+            <div class="logo-img">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                    <rect width="60" height="60" rx="10" fill="#1a3a5f"/>
+                    <path d="M15 25L30 15L45 25V45H15V25Z" fill="#d4af37"/>
+                    <rect x="25" y="30" width="10" height="15" fill="#1a3a5f"/>
+                </svg>
+            </div>
+            <div class="logo-text">MARKET MOVERS</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <h2 class="section-title">Platinum Price Analysis</h2>
+        <p class="section-subtitle">Historical platinum prices in USD per ounce</p>
+        
+        <!-- Chart Container -->
+        <div class="chart-container">
+            <h3 class="chart-title">Platinum Price Over Time (USD/oz)</h3>
+            <canvas id="price-chart" width="800" height="300"></canvas>
+        </div>
+        
+        <!-- Facts Section -->
+        <div class="facts-section">
+            <h3 class="facts-title">Platinum Facts</h3>
+            <div class="facts-content">
+                <ul class="facts-list">
+                    <li>Platinum was used by ancient Egyptians and pre-Columbian Americans over 3,000 years ago.</li>
+                    <li>It is one of the rarest elements in Earth's crust, with annual production of only about 160 tons.</li>
+                    <li>Platinum is extremely dense - a 6-inch cube of platinum would weigh about 165 pounds (75 kg).</li>
+                    <li>It has a very high melting point of 1,768°C (3,214°F), higher than gold or silver.</li>
+                    <li>About 50% of platinum production is used in catalytic converters for vehicles.</li>
+                    <li>Platinum is highly resistant to corrosion and does not tarnish in air.</li>
+                </ul>
+                <ul class="facts-list">
+                    <li>South Africa produces about 80% of the world's platinum, with Russia being the second-largest producer.</li>
+                    <li>The name "platinum" comes from the Spanish word "platina" meaning "little silver".</li>
+                    <li>Platinum is used in laboratory equipment, electrical contacts, and jewelry.</li>
+                    <li>It is used in chemotherapy drugs to treat various types of cancer.</li>
+                    <li>Platinum is 30 times rarer than gold, contributing to its high value.</li>
+                    <li>The metal is also used in fuel cells and as a catalyst in the production of fertilizers.</li>
+                </ul>
+            </div>
+        </div>
+<div class="facts-section">
+    <h3 class="facts-title">Platinum Price Analysis (2015-2025)</h3>
+    <div class="facts-content">
+        
+        <!-- Trends Section -->
+        <div class="analysis-section">
+            <h4>Major Trends</h4>
+            <ul class="facts-list">
+                <li><strong>Sustained Downtrend Reversal:</strong> Powerful recovery from 2020 lows to current multi-year highs.</li>
+                <li><strong>Extended Basing Pattern:</strong> Five-year consolidation between $730-$1,200 from 2019-2024.</li>
+                <li><strong>Explosive 2025 Breakout:</strong> Strong 64% surge from $910 to $1,489 in nine months.</li>
+                <li><strong>Overall Performance:</strong> +50% increase from $990 (2015) to $1,489 (2025).</li>
+            </ul>
+        </div>
+
+        <!-- Price Anomalies Section -->
+        <div class="analysis-section">
+            <h4>Price Anomalies</h4>
+            <ul class="facts-list">
+                <li><strong>March 2020 COVID Crash:</strong> $730 cycle low representing 40% decline from early 2020 highs.</li>
+                <li><strong>2025 Breakout Acceleration:</strong> Consistent upward pressure throughout 2025 with strong momentum.</li>
+                <li><strong>August 2022 Secondary Low:</strong> $832 level tested and held as support during market uncertainty.</li>
+                <li><strong>December 2024 Base Completion:</strong> $910 established as final basing low before explosive rally.</li>
+                <li><strong>Current Multi-Year High:</strong> $1,489 represents highest price level since 2016.</li>
+            </ul>
+        </div>
+
+        <!-- Potential Causes Section -->
+        <div class="analysis-section">
+            <h4>Potential Causes</h4>
+            <ul class="facts-list">
+                <li><strong>Palladium Substitution:</strong> Auto manufacturers switching from expensive palladium creating new demand source.</li>
+                <li><strong>Green Hydrogen Demand:</strong> Platinum's use in electrolyzers for hydrogen economy driving structural demand.</li>
+                <li><strong>South African Supply Challenges:</strong> Production issues in dominant producing region supporting prices.</li>
+                <li><strong>Investment Rediscovery:</strong> Renewed institutional interest after years of market neglect.</li>
+                <li><strong>Supply Discipline:</strong> Producers maintaining capital discipline despite higher price environment.</li>
+            </ul>
+        </div>
+
+        <!-- Future Predictions Section -->
+        <div class="analysis-section">
+            <h4>Future Outlook</h4>
+            <ul class="facts-list">
+                <li><strong>Bullish Trend Confirmation:</strong> Sustained move above $1,500 would confirm new bull market phase.</li>
+                <li><strong>Measured Move Projection:</strong> $1,700-$1,800 target zone based on size of preceding base.</li>
+                <li><strong>Critical Support Level:</strong> $1,200-$1,300 zone now represents key support after resistance break.</li>
+                <li><strong>Fundamental Improvement:</strong> Supply-demand balance enhancement supporting higher price floor.</li>
+                <li><strong>Regime Change Evidence:</strong> Combination of technical breakout and improving fundamentals suggesting sustained recovery.</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">Market Movers &copy; 2025 | Commodity pricing and analytics</p>
+    </footer>
+
+    <script>
+        async function fetchCSVData() {
+            const response = await fetch('../data/platinum.csv');
+            const text = await response.text();
+            console.log('Raw CSV text:', text);
+
+            const rows = text.trim().split('\n');
+            console.log('Parsed rows:', rows);
+
+            const dataPoints = [];
+
+            rows.forEach((row, index) => {
+                console.log(`Row ${index}:`, row);
+                const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,.]+)"?/);
+                if (match) {
+                    const [month, day, year] = match[1].split('/');
+                    const isoDate = `${year}-${month}-${day}`;
+                    const price = parseFloat(match[2].replace(/,/g, ''));
+                    if (!isNaN(price)) {
+                        dataPoints.push({ x: isoDate, y: price });
+                    } else {
+                        console.warn(`Row ${index}: Invalid price "${match[2]}"`);
+                    }
+                } else {
+                    console.warn(`Row ${index}: No match for "${row}"`);
+                }
+            });
+
+            return dataPoints.reverse(); // chronological order
+        }
+
+        async function renderChart() {
+            const dataPoints = await fetchCSVData();
+            console.log('Final data points:', dataPoints);
+
+            const ctx = document.getElementById('price-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Price ($/oz)',
+                        data: dataPoints,
+                        borderColor: 'rgba(229, 228, 226, 0.8)',
+                        backgroundColor: 'rgba(229, 228, 226, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'month',
+                                round: 'month',
+                                tooltipFormat: 'dd LLL yyyy',
+                                displayFormats: {
+                                    month: 'MMM yyyy'
+                                }
+                            },
+                            ticks: {
+                                source: 'data'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Price (USD)'
+                            },
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }
+                }
+            });
+        }
+
+        renderChart();
+    </script>
+</body>
+</html>
+
+
+
+

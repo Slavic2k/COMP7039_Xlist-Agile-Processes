@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Movers - Silver</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgb(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            padding: 5px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a3a5f;
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 25px;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1a3a5f;
+        }
+
+        nav li::after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 5px;
+            color: #777;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: #1a3a5f;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: #777;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-title {
+            color: #1a3a5f;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Facts Section */
+        .facts-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .facts-title {
+            color: #1a3a5f;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #c0c0c0;
+            text-align: center;
+        }
+
+        .facts-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .facts-list {
+            list-style-type: none;
+        }
+
+        .facts-list li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .facts-list li::before {
+            content: "•";
+            color: #c0c0c0;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav li {
+                margin: 5px 10px;
+            }
+
+            .facts-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.3/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        COMMODITY PRICES & MARKET TRENDS
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!-- Using a placeholder for the logo -->
+            <div class="logo-img">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                    <rect width="60" height="60" rx="10" fill="#1a3a5f"/>
+                    <path d="M15 25L30 15L45 25V45H15V25Z" fill="#d4af37"/>
+                    <rect x="25" y="30" width="10" height="15" fill="#1a3a5f"/>
+                </svg>
+            </div>
+            <div class="logo-text">MARKET MOVERS</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <h2 class="section-title">Silver Price Analysis</h2>
+        <p class="section-subtitle">Historical silver prices in USD per ounce</p>
+        
+        <!-- Chart Container -->
+        <div class="chart-container">
+            <h3 class="chart-title">Silver Price Over Time (USD/oz)</h3>
+            <canvas id="price-chart" width="800" height="300"></canvas>
+        </div>
+        
+        <!-- Facts Section -->
+        <div class="facts-section">
+            <h3 class="facts-title">Silver Facts</h3>
+            <div class="facts-content">
+                <ul class="facts-list">
+                    <li>Silver has been used by humans for over 5,000 years, with the earliest known silver artifacts dating to 4000 BCE.</li>
+                    <li>It is the best conductor of electricity of all elements, even better than copper.</li>
+                    <li>Silver is the most reflective metal, reflecting about 95% of the visible light spectrum.</li>
+                    <li>The chemical symbol for silver is Ag, from the Latin word "argentum" meaning "shiny" or "white".</li>
+                    <li>Silver has natural antibacterial properties and was used historically to prevent infection.</li>
+                    <li>It is more abundant than gold, with a ratio of about 17.5:1 in the Earth's crust.</li>
+                </ul>
+                <ul class="facts-list">
+                    <li>Mexico is the world's largest producer of silver, followed by Peru and China.</li>
+                    <li>Silver is used in photography, electronics, jewelry, and currency.</li>
+                    <li>The term "sterling silver" indicates the metal is 92.5% pure silver and 7.5% other metals.</li>
+                    <li>Silver can be hammered into sheets so thin that it becomes transparent.</li>
+                    <li>About 30% of silver production comes from recycling, particularly from photographic materials.</li>
+                    <li>Silver is used in solar panels, with over 100 million ounces used annually in photovoltaic cells.</li>
+                </ul>
+            </div>
+        </div>
+```html
+<div class="facts-section">
+    <h3 class="facts-title">Silver Price Analysis (2015-2025)</h3>
+    <div class="facts-content">
+        
+        <!-- Trends Section -->
+        <div class="analysis-section">
+            <h4>Major Trends</h4>
+            <ul class="facts-list">
+                <li><strong>Transformational Bull Market:</strong> Explosive 2024-2025 rally with prices surging from $24 to $44.68.</li>
+                <li><strong>Multi-Year Base Formation:</strong> Extended four-year consolidation below $20 from 2015-2019 provided strong foundation.</li>
+                <li><strong>Parabolic Acceleration:</strong> Recent back-to-back 10% monthly gains in August-September 2025.</li>
+                <li><strong>Overall Performance:</strong> +187% increase from $15.58 (2015) to $44.68 (2025).</li>
+            </ul>
+        </div>
+
+        <!-- Price Anomalies Section -->
+        <div class="analysis-section">
+            <h4>Price Anomalies</h4>
+            <ul class="facts-list">
+                <li><strong>September 2025 Record High:</strong> $44.68 current peak driven by massive solar demand and investment flows.</li>
+                <li><strong>March 2020 COVID Crash:</strong> $15.02 low representing 40% decline from early 2020 highs.</li>
+                <li><strong>August 2025 Massive Surge:</strong> 10% monthly gain as institutional and retail buying accelerated.</li>
+                <li><strong>August 2020 Initial Breakout:</strong> $29.74 first significant move above $20 resistance level.</li>
+                <li><strong>Current Parabolic Conditions:</strong> Emotionally-driven phase with potential for violent correction.</li>
+            </ul>
+        </div>
+
+        <!-- Potential Causes Section -->
+        <div class="analysis-section">
+            <h4>Potential Causes</h4>
+            <ul class="facts-list">
+                <li><strong>Solar Energy Boom:</strong> Critical demand from photovoltaic cell manufacturing driving structural market shift.</li>
+                <li><strong>Monetary Hedge Demand:</strong> Inflation and currency debasement concerns supporting precious metal attributes.</li>
+                <li><strong>Supply Constraints:</strong> Mining production challenges unable to meet growing industrial and investment demand.</li>
+                <li><strong>Green Energy Transition:</strong> Massive institutional repositioning into commodities essential for electrification.</li>
+                <li><strong>Investment Rotation:</strong> Capital moving from overvalued assets to undervalued commodities with strong fundamentals.</li>
+            </ul>
+        </div>
+
+        <!-- Future Predictions Section -->
+        <div class="analysis-section">
+            <h4>Future Outlook</h4>
+            <ul class="facts-list">
+                <li><strong>Next Target Zone:</strong> $50-$55 represents next psychological and technical resistance area.</li>
+                <li><strong>Critical Support Level:</strong> $35-$38 zone now crucial after breakout above multi-year resistance.</li>
+                <li><strong>Correction Risk:</strong> Parabolic moves often end with violent 30-40% corrections from peak levels.</li>
+                <li><strong>Structural Deficit Persistence:</strong> Mine supply fundamentally unable to meet green energy transition demand.</li>
+                <li><strong>Dual Nature Advantage:</strong> Combination of precious metal safety and industrial metal growth supporting long-term value.</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+```
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">Market Movers &copy; 2025 | Commodity pricing and analytics</p>
+    </footer>
+
+    <script>
+        async function fetchCSVData() {
+            const response = await fetch('../data/silver.csv');
+            const text = await response.text();
+            console.log('Raw CSV text:', text);
+
+            const rows = text.trim().split('\n');
+            console.log('Parsed rows:', rows);
+
+            const dataPoints = [];
+
+            rows.forEach((row, index) => {
+                console.log(`Row ${index}:`, row);
+                const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,.]+)"?/);
+                if (match) {
+                    const [month, day, year] = match[1].split('/');
+                    const isoDate = `${year}-${month}-${day}`;
+                    const price = parseFloat(match[2].replace(/,/g, ''));
+                    if (!isNaN(price)) {
+                        dataPoints.push({ x: isoDate, y: price });
+                    } else {
+                        console.warn(`Row ${index}: Invalid price "${match[2]}"`);
+                    }
+                } else {
+                    console.warn(`Row ${index}: No match for "${row}"`);
+                }
+            });
+
+            return dataPoints.reverse(); // chronological order
+        }
+
+        async function renderChart() {
+            const dataPoints = await fetchCSVData();
+            console.log('Final data points:', dataPoints);
+
+            const ctx = document.getElementById('price-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Price ($/oz)',
+                        data: dataPoints,
+                        borderColor: 'rgba(192, 192, 192, 0.8)',
+                        backgroundColor: 'rgba(192, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'month',
+                                round: 'month',
+                                tooltipFormat: 'dd LLL yyyy',
+                                displayFormats: {
+                                    month: 'MMM yyyy'
+                                }
+                            },
+                            ticks: {
+                                source: 'data'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Price (USD)'
+                            },
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }
+                }
+            });
+        }
+
+        renderChart();
+    </script>
+</body>
+</html>
+

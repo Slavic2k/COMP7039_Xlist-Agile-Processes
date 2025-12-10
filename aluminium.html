@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Movers - Aluminium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgb(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            padding: 5px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a3a5f;
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 25px;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1a3a5f;
+        }
+
+        nav li::after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 5px;
+            color: #777;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: #1a3a5f;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: #777;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-title {
+            color: #1a3a5f;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Facts Section */
+        .facts-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .facts-title {
+            color: #1a3a5f;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #808080;
+            text-align: center;
+        }
+
+        .facts-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .facts-list {
+            list-style-type: none;
+        }
+
+        .facts-list li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .facts-list li::before {
+            content: "•";
+            color: #808080;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav li {
+                margin: 5px 10px;
+            }
+
+            .facts-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.3/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        COMMODITY PRICES & MARKET TRENDS
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!-- Using a placeholder for the logo -->
+            <div class="logo-img">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                    <rect width="60" height="60" rx="10" fill="#1a3a5f"/>
+                    <path d="M15 25L30 15L45 25V45H15V25Z" fill="#d4af37"/>
+                    <rect x="25" y="30" width="10" height="15" fill="#1a3a5f"/>
+                </svg>
+            </div>
+            <div class="logo-text">MARKET MOVERS</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <h2 class="section-title">Aluminium Price Analysis</h2>
+        <p class="section-subtitle">Historical aluminium prices in USD per ton</p>
+        
+        <!-- Chart Container -->
+        <div class="chart-container">
+            <h3 class="chart-title">Aluminium Price Over Time (USD/ton)</h3>
+            <canvas id="price-chart" width="800" height="300"></canvas>
+        </div>
+        
+        <!-- Facts Section -->
+        <div class="facts-section">
+            <h3 class="facts-title">Aluminium Facts</h3>
+            <div class="facts-content">
+                <ul class="facts-list">
+                    <li>Aluminium is the most abundant metal in the Earth's crust, making up about 8% of the crust by weight.</li>
+                    <li>It was once considered more precious than gold and silver because it was so difficult to extract.</li>
+                    <li>Aluminium is 100% recyclable and retains all its properties no matter how many times it's recycled.</li>
+                    <li>Recycling aluminium requires only 5% of the energy needed to produce new aluminium from ore.</li>
+                    <li>The top of the Washington Monument is capped with a 100-ounce pyramid of aluminium.</li>
+                    <li>Aluminium is an excellent conductor of electricity and is often used in electrical transmission lines.</li>
+                </ul>
+                <ul class="facts-list">
+                    <li>Despite being strong, aluminium is about one-third the density of steel.</li>
+                    <li>Aluminium doesn't rust because it forms a protective oxide coating when exposed to air.</li>
+                    <li>About 75% of all aluminium ever produced is still in use today due to recycling.</li>
+                    <li>Aluminium foil was first used for packaging in 1911 for wrapping chocolate bars.</li>
+                    <li>The chemical symbol for aluminium is Al and its atomic number is 13.</li>
+                    <li>China is the world's largest producer of aluminium, accounting for over half of global production.</li>
+                </ul>
+            </div>
+        </div>
+<div class="facts-section">
+    <h3 class="facts-title">Aluminium Price Analysis (2015-2025)</h3>
+    <div class="facts-content">
+        
+        <!-- Trends Section -->
+        <div class="analysis-section">
+            <h4>Major Trends</h4>
+            <ul class="facts-list">
+                <li><strong>Historic Bull Run (2021-2022):</strong> Explosive rally from $1,977 to $3,491 all-time high (+77%).</li>
+                <li><strong>Current Consolidation:</strong> Stabilized at $2,400-$2,600 range after 2022 peak.</li>
+                <li><strong>Regime Changes:</strong> Transition from range-bound (2015-2020) to crisis-driven (2021-2022) to new equilibrium (2025+).</li>
+                <li><strong>Higher Price Floor:</strong> Established new base around $2,200 vs pre-2020 $1,600 levels.</li>
+            </ul>
+        </div>
+
+        <!-- Price Anomalies Section -->
+        <div class="analysis-section">
+            <h4>Price Anomalies</h4>
+            <ul class="facts-list">
+                <li><strong>March 2022 Peak:</strong> $3,491 all-time high - culmination of 12-month bull market.</li>
+                <li><strong>Extreme Volatility:</strong> 2022 saw +16.5% surges and -12.6% crashes within months.</li>
+                <li><strong>Volatility Clusters:</strong> Multiple 5-8% monthly moves in 2018 and renewed volatility in 2024.</li>
+                <li><strong>Sharp Declines:</strong> April 2022 (-12.6%), March 2024 (-10.3%), July 2024 (-9.3%).</li>
+            </ul>
+        </div>
+
+        <!-- Potential Causes Section -->
+        <div class="analysis-section">
+            <h4>Potential Causes</h4>
+            <ul class="facts-list">
+                <li><strong>Supply-Side Shocks:</strong> Energy-intensive production sensitive to electricity prices and geopolitical events.</li>
+                <li><strong>Post-COVID Demand:</strong> Industrial recovery combined with supply chain disruptions.</li>
+                <li><strong>Green Energy Transition:</strong> Growing demand from EVs and renewable infrastructure.</li>
+                <li><strong>European Energy Crisis:</strong> 2022 Russia-Ukraine conflict impacting major production regions.</li>
+            </ul>
+        </div>
+
+        <!-- Future Predictions Section -->
+        <div class="analysis-section">
+            <h4>Future Outlook</h4>
+            <ul class="facts-list">
+                <li><strong>New Trading Range:</strong> $2,200-$2,800 likely represents normalized trading band.</li>
+                <li><strong>Elevated Volatility:</strong> Continued sensitivity to global industrial sentiment and energy prices.</li>
+                <li><strong>Breakout Requirements:</strong> Significant fundamental catalysts needed to break current range.</li>
+                <li><strong>Structural Demand:</strong> Green energy applications creating long-term support above historical levels.</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+</div>  
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">Market Movers &copy; 2025 | Commodity pricing and analytics</p>
+    </footer>
+
+    <script>
+        async function fetchCSVData() {
+            const response = await fetch('../data/aluminium.csv');
+            const text = await response.text();
+            console.log('Raw CSV text:', text);
+
+            const rows = text.trim().split('\n');
+            console.log('Parsed rows:', rows);
+
+            const dataPoints = [];
+
+            rows.forEach((row, index) => {
+                console.log(`Row ${index}:`, row);
+                const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,.]+)"?/);
+                if (match) {
+                    const [month, day, year] = match[1].split('/');
+                    const isoDate = `${year}-${month}-${day}`;
+                    const price = parseFloat(match[2].replace(/,/g, ''));
+                    if (!isNaN(price)) {
+                        dataPoints.push({ x: isoDate, y: price });
+                    } else {
+                        console.warn(`Row ${index}: Invalid price "${match[2]}"`);
+                    }
+                } else {
+                    console.warn(`Row ${index}: No match for "${row}"`);
+                }
+            });
+
+            return dataPoints.reverse(); // chronological order
+        }
+
+        async function renderChart() {
+            const dataPoints = await fetchCSVData();
+            console.log('Final data points:', dataPoints);
+
+            const ctx = document.getElementById('price-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Price ($/ton)',
+                        data: dataPoints,
+                        borderColor: 'rgba(128, 128, 128, 0.8)',
+                        backgroundColor: 'rgba(128, 128, 128, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'month',
+                                round: 'month',
+                                tooltipFormat: 'dd LLL yyyy',
+                                displayFormats: {
+                                    month: 'MMM yyyy'
+                                }
+                            },
+                            ticks: {
+                                source: 'data'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Price (USD)'
+                            },
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }
+                }
+            });
+        }
+
+        renderChart();
+    </script>
+</body>
+</html>
+
+

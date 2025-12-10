@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Movers - Nickel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgb(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            padding: 5px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a3a5f;
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 25px;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1a3a5f;
+        }
+
+        nav li::after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 5px;
+            color: #777;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: #1a3a5f;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: #777;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-title {
+            color: #1a3a5f;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Facts Section */
+        .facts-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .facts-title {
+            color: #1a3a5f;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #727272;
+            text-align: center;
+        }
+
+        .facts-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .facts-list {
+            list-style-type: none;
+        }
+
+        .facts-list li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .facts-list li::before {
+            content: "•";
+            color: #727272;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav li {
+                margin: 5px 10px;
+            }
+
+            .facts-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.3/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        COMMODITY PRICES & MARKET TRENDS
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!-- Using a placeholder for the logo -->
+            <div class="logo-img">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                    <rect width="60" height="60" rx="10" fill="#1a3a5f"/>
+                    <path d="M15 25L30 15L45 25V45H15V25Z" fill="#d4af37"/>
+                    <rect x="25" y="30" width="10" height="15" fill="#1a3a5f"/>
+                </svg>
+            </div>
+            <div class="logo-text">MARKET MOVERS</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <h2 class="section-title">Nickel Price Analysis</h2>
+        <p class="section-subtitle">Historical nickel prices in USD per ton</p>
+        
+        <!-- Chart Container -->
+        <div class="chart-container">
+            <h3 class="chart-title">Nickel Price Over Time (USD/Ton)</h3>
+            <canvas id="price-chart" width="800" height="300"></canvas>
+        </div>
+        
+        <!-- Facts Section -->
+        <div class="facts-section">
+            <h3 class="facts-title">Nickel Facts</h3>
+            <div class="facts-content">
+                <ul class="facts-list">
+                    <li>Nickel was discovered in 1751 by Swedish chemist Axel Fredrik Cronstedt.</li>
+                    <li>The name "nickel" comes from the German word "kupfernickel" meaning "devil's copper".</li>
+                    <li>Nickel is the 5th most common element on Earth, making up about 3% of the Earth's core.</li>
+                    <li>It is highly resistant to corrosion and oxidation, even at high temperatures.</li>
+                    <li>About 65% of all nickel produced is used to make stainless steel.</li>
+                    <li>Nickel is magnetic at room temperature, one of only four elements that are.</li>
+                </ul>
+                <ul class="facts-list">
+                    <li>The largest producers of nickel are Indonesia, Philippines, and Russia.</li>
+                    <li>Nickel is essential for electric vehicle batteries, particularly in nickel-manganese-cobalt (NMC) batteries.</li>
+                    <li>The U.S. five-cent coin (nickel) is actually 75% copper and only 25% nickel.</li>
+                    <li>Nickel has a high melting point of 1,455°C (2,651°F).</li>
+                    <li>Some people are allergic to nickel, which can cause skin irritation from jewelry or coins.</li>
+                    <li>Nickel can be recycled indefinitely without losing its quality or properties.</li>
+                </ul>
+            </div>
+        </div>
+<div class="facts-section">
+    <h3 class="facts-title">Nickel Price Analysis (2015-2025)</h3>
+    <div class="facts-content">
+        
+        <!-- Trends Section -->
+        <div class="analysis-section">
+            <h4>Major Trends</h4>
+            <ul class="facts-list">
+                <li><strong>Historic Bubble Cycle:</strong> Extraordinary volatility with explosive 2021-2022 rally followed by catastrophic collapse.</li>
+                <li><strong>Post-Bubble Consolidation:</strong> Prices stabilized around $15,000 after 50% decline from 2022 peaks.</li>
+                <li><strong>Extreme Volatility Regime:</strong> Standard deviations of 30-40% annualized during peak periods.</li>
+                <li><strong>Overall Performance:</strong> +53% increase from $10,025 (2015) to $15,288 (2025).</li>
+            </ul>
+        </div>
+
+        <!-- Price Anomalies Section -->
+        <div class="analysis-section">
+            <h4>Price Anomalies</h4>
+            <ul class="facts-list">
+                <li><strong>April 2022 Record High:</strong> $31,864 all-time peak driven by EV battery hype and massive speculative positioning.</li>
+                <li><strong>2023 Catastrophic Collapse:</strong> -50% crash from $30,259 as Indonesian supply growth overwhelmed demand.</li>
+                <li><strong>March 2020 COVID Low:</strong> $11,484 bottom due to industrial shutdowns and demand destruction.</li>
+                <li><strong>LME Short Squeeze:</strong> March 2022 historic squeeze event exacerbated price extremes and market dislocation.</li>
+                <li><strong>Recent Stabilization:</strong> $14,900-$17,500 trading range established in 2024-2025 indicating base formation.</li>
+            </ul>
+        </div>
+
+        <!-- Potential Causes Section -->
+        <div class="analysis-section">
+            <h4>Potential Causes</h4>
+            <ul class="facts-list">
+                <li><strong>EV Battery Demand Hype:</strong> Massive speculative positioning around nickel's role in lithium-ion batteries drove bubble conditions.</li>
+                <li><strong>Indonesian Supply Surge:</strong> Massive production increases from Indonesia overwhelmed market fundamentals and crashed prices.</li>
+                <li><strong>Stainless Steel Dominance:</strong> Approximately 70% of demand from stainless sector creating cyclical industrial exposure.</li>
+                <li><strong>Technological Production Shifts:</strong> HPAL vs RKEF production methods affecting cost structures and supply responsiveness.</li>
+                <li><strong>Investor Sentiment Extremes:</strong> Retail and institutional frenzy during 2021-2022 followed by complete sentiment reversal.</li>
+            </ul>
+        </div>
+
+        <!-- Future Predictions Section -->
+        <div class="analysis-section">
+            <h4>Future Outlook</h4>
+            <ul class="facts-list">
+                <li><strong>Extended Basing Period:</strong> Likely requires years to fully recover investor confidence after catastrophic bubble collapse.</li>
+                <li><strong>Supply Overhang:</strong> Indonesian production dominance creating persistent downward pressure on prices.</li>
+                <li><strong>Critical Support Level:</strong> $15,000 represents key stabilization zone for medium-term price direction.</li>
+                <li><strong>Reduced Speculative Interest:</strong> Investor appetite likely permanently damaged following massive losses.</li>
+                <li><strong>Gradual Fundamental Recovery:</strong> Slow demand growth from legitimate EV applications may eventually absorb excess supply.</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">Market Movers &copy; 2025 | Commodity pricing and analytics</p>
+    </footer>
+
+    <script>
+        async function fetchCSVData() {
+            const response = await fetch('../data/nickel.csv');
+            const text = await response.text();
+            console.log('Raw CSV text:', text);
+
+            const rows = text.trim().split('\n');
+            console.log('Parsed rows:', rows);
+
+            const dataPoints = [];
+
+            rows.forEach((row, index) => {
+                console.log(`Row ${index}:`, row);
+                const match = row.match(/^(\d{2}\/\d{2}\/\d{4}),"?([\d,.]+)"?/);
+                if (match) {
+                    const [month, day, year] = match[1].split('/');
+                    const isoDate = `${year}-${month}-${day}`;
+                    const price = parseFloat(match[2].replace(/,/g, ''));
+                    if (!isNaN(price)) {
+                        dataPoints.push({ x: isoDate, y: price });
+                    } else {
+                        console.warn(`Row ${index}: Invalid price "${match[2]}"`);
+                    }
+                } else {
+                    console.warn(`Row ${index}: No match for "${row}"`);
+                }
+            });
+
+            return dataPoints.reverse(); // chronological order
+        }
+
+        async function renderChart() {
+            const dataPoints = await fetchCSVData();
+            console.log('Final data points:', dataPoints);
+
+            const ctx = document.getElementById('price-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Price ($/Ton)',
+                        data: dataPoints,
+                        borderColor: 'rgba(114, 114, 114, 0.8)',
+                        backgroundColor: 'rgba(114, 114, 114, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'month',
+                                round: 'month',
+                                tooltipFormat: 'dd LLL yyyy',
+                                displayFormats: {
+                                    month: 'MMM yyyy'
+                                }
+                            },
+                            ticks: {
+                                source: 'data'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Price (USD)'
+                            },
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }
+                }
+            });
+        }
+
+        renderChart();
+    </script>
+</body>
+</html>
+
+
+
