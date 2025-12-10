@@ -1,5 +1,10 @@
 name: Lint Embedded HTML, CSS, and JS in src/
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 on:
   push:
     paths:
@@ -59,6 +64,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
         
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -66,4 +73,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./src
           publish_branch: gh-pages
-
+          force_orphan: true
