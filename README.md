@@ -47,3 +47,7 @@ Oleksiy Borshchevskyy
 Brandon Cheung
 Alexander Donnelly
 Christabell Ibebugwu
+
+*Side Note*
+If you attempt to run this code in an offline enviorment then the graph charts will not function. 
+If using VSCode install the extension 'live server' to see the graph charts run
